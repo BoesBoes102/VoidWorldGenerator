@@ -6,7 +6,7 @@ group = "com.boes.voidworld"
 version = "1.1"
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21)) // Paper requires Java 17+
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
 
 repositories {
