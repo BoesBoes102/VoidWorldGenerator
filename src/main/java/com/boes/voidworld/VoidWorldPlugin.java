@@ -40,7 +40,7 @@ public class VoidWorldPlugin extends JavaPlugin {
             creator.generator(new ChunkGenerator() {
                 @Override
                 public @NotNull ChunkData generateChunkData(@NotNull World world, @NotNull Random random, int chunkX, int chunkZ, @NotNull BiomeGrid biome) {
-                    return createChunkData(world); // returns an empty chunk (void)
+                    return createChunkData(world);
                 }
             });
 
