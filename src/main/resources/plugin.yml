@@ -1,0 +1,8 @@
+name: VoidWorldPlugin
+main: com.boes.voidworld.VoidWorldPlugin
+version: 1.0
+api-version: '1.21'
+commands:
+  generatevoidworld:
+    description: Generates a void world named world1
+    usage: /generatevoidworld
