@@ -6,15 +6,19 @@ import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.command.TabExecutor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.generator.BiomeProvider;
+import org.bukkit.generator.WorldInfo;
+import org.bukkit.block.Biome;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Collections;
 import java.util.Random;
 
 public class VoidWorldPlugin extends JavaPlugin implements TabExecutor {
@@ -50,12 +54,9 @@ public class VoidWorldPlugin extends JavaPlugin implements TabExecutor {
         sender.sendMessage(ChatColor.YELLOW + "Generating void world: " + worldName);
 
         WorldCreator creator = new WorldCreator(worldName);
-        creator.generator(new ChunkGenerator() {
-            @Override
-            public @NotNull ChunkData generateChunkData(@NotNull World world, @NotNull Random random, int chunkX, int chunkZ, @NotNull BiomeGrid biome) {
-                return createChunkData(world);
-            }
-        });
+        creator.generator(new VoidGenerator());
+        creator.biomeProvider(new VoidBiomeProvider());
+        creator.generateStructures(false);
 
         World world = creator.createWorld();
 
@@ -77,5 +78,51 @@ public class VoidWorldPlugin extends JavaPlugin implements TabExecutor {
             completions.add("world3");
         }
         return completions;
+    }
+
+    private static class VoidGenerator extends ChunkGenerator {
+        @Override
+        public void generateNoise(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull ChunkData chunkData) {
+        }
+
+        @Override
+        public void generateSurface(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull ChunkData chunkData) {
+        }
+
+        @Override
+        public void generateBedrock(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull ChunkData chunkData) {
+        }
+
+        @Override
+        public boolean shouldGenerateCaves() {
+            return false;
+        }
+
+        @Override
+        public boolean shouldGenerateDecorations() {
+            return false;
+        }
+
+        @Override
+        public boolean shouldGenerateMobs() {
+            return false;
+        }
+
+        @Override
+        public boolean shouldGenerateStructures() {
+            return false;
+        }
+    }
+
+    private static class VoidBiomeProvider extends BiomeProvider {
+        @Override
+        public @NotNull Biome getBiome(@NotNull WorldInfo worldInfo, int x, int y, int z) {
+            return Biome.THE_VOID;
+        }
+
+        @Override
+        public @NotNull List<Biome> getBiomes(@NotNull WorldInfo worldInfo) {
+            return Collections.singletonList(Biome.THE_VOID);
+        }
     }
 }
