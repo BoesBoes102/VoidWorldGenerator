@@ -1,5 +1,5 @@
 name: VoidWorldPlugin
-version: 1.1
+version: 1.2
 main: com.boes.voidworld.VoidWorldPlugin
 description: A plugin to generate void worlds.
 api-version: 1.21
